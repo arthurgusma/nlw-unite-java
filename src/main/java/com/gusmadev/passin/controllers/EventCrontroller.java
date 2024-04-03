@@ -1,5 +1,7 @@
 package com.gusmadev.passin.controllers;
 
+import com.gusmadev.passin.dto.event.EventIdDTO;
+import com.gusmadev.passin.dto.event.EventResponseDTO;
 import com.gusmadev.passin.services.EventSerivce;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,8 @@ public class EventCrontroller {
 
     private final EventSerivce service;
     @GetMapping("/{eventId}")
-    public ResponseEntity<String> getEvent(@PathVariable String eventId){
-        this.service.getEventDetail(eventId);
-        return ResponseEntity.ok("Success");
+    public ResponseEntity<EventResponseDTO> getEvent(@PathVariable String eventId){
+        EventResponseDTO event = this.service.getEventDetail(eventId);
+        return ResponseEntity.ok(event);
     }
 }
