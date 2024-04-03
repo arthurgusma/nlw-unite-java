@@ -2,6 +2,7 @@ package com.gusmadev.passin.services;
 
 import com.gusmadev.passin.domain.attendee.Attendee;
 import com.gusmadev.passin.domain.event.Event;
+import com.gusmadev.passin.domain.event.exceptions.EventNotFoundException;
 import com.gusmadev.passin.dto.event.EventIdDTO;
 import com.gusmadev.passin.dto.event.EventRequestDTO;
 import com.gusmadev.passin.dto.event.EventResponseDTO;
@@ -21,7 +22,7 @@ public class EventSerivce {
     private final AttendeeRepository attendeeRepository;
 
     public EventResponseDTO getEventDetail(String eventId){
-        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found with Id:" + eventId));
+        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException("Event not found with Id:" + eventId));
         List<Attendee> attendeeList = this.attendeeRepository.findByEventId(eventId);
         return new EventResponseDTO(event, attendeeList.size());
     }
