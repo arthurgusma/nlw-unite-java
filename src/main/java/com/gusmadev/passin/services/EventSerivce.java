@@ -42,7 +42,7 @@ public class EventSerivce {
     private String createSlug(String text){
         String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);
         return normalized.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "")
-                .replaceAll("[ˆ\\w\\s]", "")
+                .replaceAll("[^\\w\\s]", "")
                 .replaceAll("[\\s+]", "-")
                 .toLowerCase();
     }
