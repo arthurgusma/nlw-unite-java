@@ -1,7 +1,6 @@
 package com.gusmadev.passin.services;
 
 import com.gusmadev.passin.domain.attendee.Attendee;
-import com.gusmadev.passin.domain.event.AttendeeService;
 import com.gusmadev.passin.domain.event.Event;
 import com.gusmadev.passin.domain.event.exceptions.EventNotFoundException;
 import com.gusmadev.passin.dto.event.EventIdDTO;

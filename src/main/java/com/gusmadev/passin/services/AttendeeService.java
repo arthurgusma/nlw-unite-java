@@ -1,4 +1,4 @@
-package com.gusmadev.passin.domain.event;
+package com.gusmadev.passin.services;
 
 import com.gusmadev.passin.domain.attendee.Attendee;
 import com.gusmadev.passin.repositories.AttendeeRepository;
