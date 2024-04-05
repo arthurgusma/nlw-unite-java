@@ -1,6 +1,7 @@
 package com.gusmadev.passin.services;
 
 import com.gusmadev.passin.domain.attendee.Attendee;
+import com.gusmadev.passin.domain.attendee.exceptions.AttendeeAlreadyRegisteredException;
 import com.gusmadev.passin.domain.chechin.CheckIn;
 import com.gusmadev.passin.dto.attendee.AttendeeDetails;
 import com.gusmadev.passin.dto.attendee.AttendeesListResponseDTO;
@@ -33,5 +34,15 @@ public class AttendeeService {
         }).toList();
 
         return new AttendeesListResponseDTO(attendeeDetailsList);
+    }
+
+    public void verifyAttendeeSubscription(String email, String eventId){
+        Optional<Attendee> isAttendeeResgistered =  this.attendeeRepository.findByEventIdAndEmail(eventId, email);
+        if (isAttendeeResgistered.isPresent()) throw new AttendeeAlreadyRegisteredException("Attendee is already registered!");
+    }
+
+    public Attendee registerAttendee(Attendee newAttendee) {
+        this.attendeeRepository.save(newAttendee);
+        return newAttendee;
     }
 }
