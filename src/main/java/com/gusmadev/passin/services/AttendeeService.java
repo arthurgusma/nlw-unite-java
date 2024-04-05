@@ -2,13 +2,17 @@ package com.gusmadev.passin.services;
 
 import com.gusmadev.passin.domain.attendee.Attendee;
 import com.gusmadev.passin.domain.attendee.exceptions.AttendeeAlreadyRegisteredException;
+import com.gusmadev.passin.domain.attendee.exceptions.AttendeeNotFoundException;
 import com.gusmadev.passin.domain.chechin.CheckIn;
+import com.gusmadev.passin.dto.attendee.AttendeeBadgeResponseDTO;
 import com.gusmadev.passin.dto.attendee.AttendeeDetails;
 import com.gusmadev.passin.dto.attendee.AttendeesListResponseDTO;
+import com.gusmadev.passin.dto.attendee.AttendeeBadgeDTO;
 import com.gusmadev.passin.repositories.AttendeeRepository;
 import com.gusmadev.passin.repositories.CheckinRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,5 +48,12 @@ public class AttendeeService {
     public Attendee registerAttendee(Attendee newAttendee) {
         this.attendeeRepository.save(newAttendee);
         return newAttendee;
+    }
+
+    public AttendeeBadgeResponseDTO getAttendeeBadge(String attendeeId, UriComponentsBuilder uriComponentsBuilder){
+        Attendee attendee = this.attendeeRepository.findById(attendeeId).orElseThrow(() -> new AttendeeNotFoundException("Attendee not found with ID:" + attendeeId));
+        var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/check-in").buildAndExpand(attendeeId).toUri().toString();
+
+        return new AttendeeBadgeResponseDTO(new AttendeeBadgeDTO(attendee.getName(), attendee.getEmail(), uri, attendee.getEvent().getId()));
     }
 }
