@@ -1,5 +1,9 @@
 package com.gusmadev.passin.controllers;
 
+import com.gusmadev.passin.domain.attendee.Attendee;
+import com.gusmadev.passin.dto.attendee.AttendeeBadgeResponseDTO;
+import com.gusmadev.passin.dto.attendee.AttendeeIdDTO;
+import com.gusmadev.passin.dto.attendee.AttendeeRequestDTO;
 import com.gusmadev.passin.dto.attendee.AttendeesListResponseDTO;
 import com.gusmadev.passin.dto.event.EventIdDTO;
 import com.gusmadev.passin.dto.event.EventRequestDTO;
@@ -36,4 +40,17 @@ public class EventController {
         AttendeesListResponseDTO attendeeListResponse = this.attendeeService.getEventsAttendee(id);
         return ResponseEntity.ok(attendeeListResponse);
     }
+
+    @PostMapping("/{eventId}/badge")
+    public ResponseEntity<AttendeeIdDTO> registerParticipant(
+            @PathVariable String eventId,
+            @RequestBody AttendeeRequestDTO body,
+            UriComponentsBuilder uriComponentsBuilder){
+        AttendeeIdDTO attendeeIdDTO = this.eventSerivce.registerAttendeeOnEvent(eventId, body);
+
+        var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/badge").buildAndExpand(attendeeIdDTO.attendeeId()).toUri();
+
+        return ResponseEntity.created(uri).body(attendeeIdDTO);
+    }
+
 }
