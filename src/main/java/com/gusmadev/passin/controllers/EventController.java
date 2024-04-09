@@ -41,7 +41,7 @@ public class EventController {
         return ResponseEntity.ok(attendeeListResponse);
     }
 
-    @PostMapping("/{eventId}/badge")
+    @PostMapping("/{eventId}/attendees")
     public ResponseEntity<AttendeeIdDTO> registerParticipant(
             @PathVariable String eventId,
             @RequestBody AttendeeRequestDTO body,
