@@ -3,7 +3,7 @@ package com.gusmadev.passin.services;
 import com.gusmadev.passin.domain.attendee.Attendee;
 import com.gusmadev.passin.domain.attendee.exceptions.AttendeeAlreadyRegisteredException;
 import com.gusmadev.passin.domain.attendee.exceptions.AttendeeNotFoundException;
-import com.gusmadev.passin.domain.chechin.CheckIn;
+import com.gusmadev.passin.domain.checkIn.CheckIn;
 import com.gusmadev.passin.dto.attendee.AttendeeBadgeResponseDTO;
 import com.gusmadev.passin.dto.attendee.AttendeeDetails;
 import com.gusmadev.passin.dto.attendee.AttendeesListResponseDTO;

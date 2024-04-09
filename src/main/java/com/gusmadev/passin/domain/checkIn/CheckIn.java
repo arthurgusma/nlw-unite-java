@@ -1,4 +1,4 @@
-package com.gusmadev.passin.domain.chechin;
+package com.gusmadev.passin.domain.checkIn;
 
 import java.time.LocalDateTime;
 
